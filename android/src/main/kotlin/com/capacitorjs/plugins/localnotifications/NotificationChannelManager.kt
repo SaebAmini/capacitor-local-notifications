@@ -30,29 +30,29 @@ class NotificationChannelManager {
     }
 
     fun createChannel(call: PluginCall) {
-            val channel = JSObject()
-            if (call.getString(CHANNEL_ID) != null) {
-                channel.put(CHANNEL_ID, call.getString(CHANNEL_ID))
-            } else {
-                LocalNotificationsError.CHANNEL_MISSING_IDENTIFIER.reject(call)
-                return
-            }
-            if (call.getString(CHANNEL_NAME) != null) {
-                channel.put(CHANNEL_NAME, call.getString(CHANNEL_NAME))
-            } else {
-                LocalNotificationsError.CHANNEL_MISSING_NAME.reject(call)
-                return
-            }
+        val channel = JSObject()
+        if (call.getString(CHANNEL_ID) != null) {
+            channel.put(CHANNEL_ID, call.getString(CHANNEL_ID))
+        } else {
+            LocalNotificationsError.CHANNEL_MISSING_IDENTIFIER.reject(call)
+            return
+        }
+        if (call.getString(CHANNEL_NAME) != null) {
+            channel.put(CHANNEL_NAME, call.getString(CHANNEL_NAME))
+        } else {
+            LocalNotificationsError.CHANNEL_MISSING_NAME.reject(call)
+            return
+        }
 
-            channel.put(CHANNEL_IMPORTANCE, call.getInt(CHANNEL_IMPORTANCE, NotificationManager.IMPORTANCE_DEFAULT))
-            channel.put(CHANNEL_DESCRIPTION, call.getString(CHANNEL_DESCRIPTION, ""))
-            channel.put(CHANNEL_VISIBILITY, call.getInt(CHANNEL_VISIBILITY, NotificationCompat.VISIBILITY_PUBLIC))
-            channel.put(CHANNEL_SOUND, call.getString(CHANNEL_SOUND, null))
-            channel.put(CHANNEL_VIBRATE, call.getBoolean(CHANNEL_VIBRATE, false))
-            channel.put(CHANNEL_USE_LIGHTS, call.getBoolean(CHANNEL_USE_LIGHTS, false))
-            channel.put(CHANNEL_LIGHT_COLOR, call.getString(CHANNEL_LIGHT_COLOR, null))
-            createChannel(channel)
-            call.resolve()
+        channel.put(CHANNEL_IMPORTANCE, call.getInt(CHANNEL_IMPORTANCE, NotificationManager.IMPORTANCE_DEFAULT))
+        channel.put(CHANNEL_DESCRIPTION, call.getString(CHANNEL_DESCRIPTION, ""))
+        channel.put(CHANNEL_VISIBILITY, call.getInt(CHANNEL_VISIBILITY, NotificationCompat.VISIBILITY_PUBLIC))
+        channel.put(CHANNEL_SOUND, call.getString(CHANNEL_SOUND, null))
+        channel.put(CHANNEL_VIBRATE, call.getBoolean(CHANNEL_VIBRATE, false))
+        channel.put(CHANNEL_USE_LIGHTS, call.getBoolean(CHANNEL_USE_LIGHTS, false))
+        channel.put(CHANNEL_LIGHT_COLOR, call.getString(CHANNEL_LIGHT_COLOR, null))
+        createChannel(channel)
+        call.resolve()
     }
 
     fun createChannel(channel: JSObject) {
