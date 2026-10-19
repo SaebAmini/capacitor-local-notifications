@@ -11,10 +11,14 @@ permissions:
 
 jobs:
   lint:
-    uses: ionic-team/capacitor-actions/.github/workflows/reusable_lint.yml@ce76eaeebc6bb5bb0ddb2c88ada46f6d107a002d
+    uses: ionic-team/capacitor-actions/.github/workflows/reusable_lint.yml@1541ef6230d16e6def55e51e04ec7b5c4bff87e4
+    with:  
+      working-directory: .
 
   build:
-    uses: ionic-team/capacitor-actions/.github/workflows/reusable_build.yml@ce76eaeebc6bb5bb0ddb2c88ada46f6d107a002d
+    uses: ionic-team/capacitor-actions/.github/workflows/reusable_build.yml@1541ef6230d16e6def55e51e04ec7b5c4bff87e4
+    with:
+      working-directory: .
 
   release:
     needs: ['lint','build']
