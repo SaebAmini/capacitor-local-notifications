@@ -11,19 +11,18 @@ on:
       - '*.x'
 
 jobs:
-  setup:
-    uses: ./.github/workflows/reusable_setup.yml
-
   lint:
-    needs: 'setup'
-    uses: ./.github/workflows/reusable_lint.yml
+    uses: ionic-team/capacitor-actions/.github/workflows/reusable_lint.yml@1541ef6230d16e6def55e51e04ec7b5c4bff87e4
+    with:  
+      working-directory: .
 
   build:
-    needs: 'setup'
-    uses: ./.github/workflows/reusable_build.yml
+    uses: ionic-team/capacitor-actions/.github/workflows/reusable_build.yml@1541ef6230d16e6def55e51e04ec7b5c4bff87e4
+    with:
+      working-directory: .
 
   verify-plugin-android:
-    needs: ['setup', 'lint', 'build']
+    needs: ['lint', 'build']
     runs-on: 'macos-26'
     timeout-minutes: 30
     steps:
@@ -34,7 +33,7 @@ jobs:
         run: npm run verify:android
 
   verify-plugin-ios:
-    needs: ['setup', 'lint', 'build']
+    needs: ['lint', 'build']
     runs-on: 'macos-26'
     timeout-minutes: 30
     steps:
