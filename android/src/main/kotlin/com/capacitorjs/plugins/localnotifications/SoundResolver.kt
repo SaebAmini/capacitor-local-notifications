@@ -16,7 +16,7 @@ import java.io.File
  *     (Cordova) — matching the exact filename or the hashed `<base>__<hash>.<ext>`
  *     variant the build may emit. The asset is copied into app storage and served
  *     through [LocalNotificationsAssetProvider] as a `content://` URI (this is how
- *     the legacy plugin made web-bundled sounds playable on Android 8+).
+ *     the legacy plugin made web-bundled sounds playable on Android).
  *
  * Returns null when no matching sound can be found.
  */

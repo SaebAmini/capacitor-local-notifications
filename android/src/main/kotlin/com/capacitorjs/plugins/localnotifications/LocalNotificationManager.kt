@@ -99,7 +99,7 @@ class LocalNotificationManager(
     /**
      * When a notification carries a custom `sound` but no explicit `channelId`,
      * create (once) a dedicated channel configured with that sound and return its
-     * id. On Android 8+ the sound belongs to the channel, not the notification, so
+     * id. On Android the sound belongs to the channel, not the notification, so
      * a per-notification sound only plays if it rides on its own channel. Returns
      * null when there is no resolvable custom sound (the default channel is used).
      */
