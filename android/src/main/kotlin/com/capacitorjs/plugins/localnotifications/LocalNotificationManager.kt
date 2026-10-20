@@ -79,34 +79,31 @@ class LocalNotificationManager(
     }
 
     fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name: CharSequence = "Default"
-            val description = "Default"
-            val importance = android.app.NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(DEFAULT_NOTIFICATION_CHANNEL_ID, name, importance)
-            channel.description = description
-            val audioAttributes = AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .setUsage(AudioAttributes.USAGE_ALARM)
-                .build()
-            val soundUri = getDefaultSoundUrl(context)
-            if (soundUri != null) {
-                channel.setSound(soundUri, audioAttributes)
-            }
-            val notificationManager = context.getSystemService(android.app.NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
+        val name: CharSequence = "Default"
+        val description = "Default"
+        val importance = android.app.NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(DEFAULT_NOTIFICATION_CHANNEL_ID, name, importance)
+        channel.description = description
+        val audioAttributes = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .build()
+        val soundUri = getDefaultSoundUrl(context)
+        if (soundUri != null) {
+            channel.setSound(soundUri, audioAttributes)
         }
+        val notificationManager = context.getSystemService(android.app.NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
     }
 
     /**
      * When a notification carries a custom `sound` but no explicit `channelId`,
      * create (once) a dedicated channel configured with that sound and return its
-     * id. On Android 8+ the sound belongs to the channel, not the notification, so
+     * id. On Android the sound belongs to the channel, not the notification, so
      * a per-notification sound only plays if it rides on its own channel. Returns
      * null when there is no resolvable custom sound (the default channel is used).
      */
     private fun soundChannelId(localNotification: LocalNotification): String? {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return null
         val sound = localNotification.sound ?: return null
         val soundUri = SoundResolver.resolveUri(context, sound) ?: return null
         val channelId = "sound_" + SoundResolver.baseName(sound)
